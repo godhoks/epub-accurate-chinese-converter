@@ -1,4 +1,4 @@
-[![繁體中文](https://img.shields.io/badge/繁體中文-9E9E9E?style=for-the-badge)](README.md) [![English](https://img.shields.io/badge/English-2C6E6B?style=for-the-badge)](README.en.md) [![License: MIT](https://img.shields.io/badge/License-MIT-4C9A2A?style=for-the-badge)](LICENSE)
+[![繁體中文](https://img.shields.io/badge/繁體中文-9E9E9E?style=for-the-badge)](README.md) [![简体中文](https://img.shields.io/badge/简体中文-9E9E9E?style=for-the-badge)](README.zh-CN.md) [![English](https://img.shields.io/badge/English-2C6E6B?style=for-the-badge)](README.en.md) [![License: MIT](https://img.shields.io/badge/License-MIT-4C9A2A?style=for-the-badge)](LICENSE)
 
 # EPUB Accurate Chinese Converter
 
