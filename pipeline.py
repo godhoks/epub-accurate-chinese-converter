@@ -43,3 +43,23 @@ def convert_epub(input_path: Path, direction: str, strip: bool = False,
         raise
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
+
+
+def convert_many(input_paths, direction: str, strip: bool = False,
+                 glossary_path: Path | None = None,
+                 on_log=lambda msg: None):
+    """批次轉換多本 EPUB。逐本進行，單本失敗不影響其他本。
+
+    回傳 [(input_path, output_path 或 None, error 或 None), ...]。
+    """
+    results = []
+    for raw in input_paths:
+        p = Path(raw)
+        try:
+            out = convert_epub(p, direction, strip=strip,
+                               glossary_path=glossary_path, on_log=on_log)
+            results.append((p, out, None))
+        except Exception as e:  # 單本失敗不中斷其他本
+            on_log(f"❌ {p.name}：{e}")
+            results.append((p, None, str(e)))
+    return results

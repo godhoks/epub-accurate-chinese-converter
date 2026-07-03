@@ -28,7 +28,8 @@ class App(tk.Tk):
         self._setup_fonts()
         self._set_icon()
         # 持久狀態（切換語言重建介面時不清空）
-        self.var_file = tk.StringVar()
+        self.selected_files: list[str] = []  # 批次：實際選到的檔案清單
+        self.var_file = tk.StringVar()  # 只負責顯示摘要（唯讀）
         self.var_direction = tk.StringVar(value="s2t")
         self.var_strip = tk.BooleanVar(value=False)
         self.var_glossary = tk.StringVar()
@@ -74,7 +75,8 @@ class App(tk.Tk):
         frm_file = ttk.Frame(self.container)
         frm_file.pack(fill="x", **pad)
         ttk.Label(frm_file, text=self._tr("epub_file")).pack(side="left")
-        ttk.Entry(frm_file, textvariable=self.var_file).pack(
+        self.var_file.set(self._file_summary())
+        ttk.Entry(frm_file, textvariable=self.var_file, state="readonly").pack(
             side="left", fill="x", expand=True)
         ttk.Button(frm_file, text=self._tr("browse"),
                    command=self._pick_file).pack(side="left")
@@ -118,10 +120,20 @@ class App(tk.Tk):
             w.destroy()
         self._build_widgets()  # 重建介面，tk 變數保留原值
 
+    def _file_summary(self) -> str:
+        """依目前語言算出檔案欄顯示文字：無=空、單檔=路徑、多檔=已選 N 個。"""
+        n = len(self.selected_files)
+        if n == 0:
+            return ""
+        if n == 1:
+            return self.selected_files[0]
+        return self._tr("n_files", n=n)
+
     def _pick_file(self):
-        p = filedialog.askopenfilename(filetypes=[("EPUB", "*.epub")])
-        if p:
-            self.var_file.set(p)
+        paths = filedialog.askopenfilenames(filetypes=[("EPUB", "*.epub")])
+        if paths:
+            self.selected_files = list(paths)
+            self.var_file.set(self._file_summary())
 
     def _pick_glossary(self):
         p = filedialog.askopenfilename(
@@ -146,7 +158,7 @@ class App(tk.Tk):
         self.after(100, self._drain_log)
 
     def _run(self):
-        if not self.var_file.get().strip():
+        if not self.selected_files:
             messagebox.showwarning(self._tr("warn_title"), self._tr("warn_no_file"))
             return
         self.btn_run.configure(state="disabled")
@@ -154,15 +166,17 @@ class App(tk.Tk):
 
     def _worker(self):
         try:
-            out = pipeline.convert_epub(
-                Path(self.var_file.get()),
+            glossary = (Path(self.var_glossary.get())
+                        if self.var_glossary.get().strip() else None)
+            results = pipeline.convert_many(
+                self.selected_files,
                 self.var_direction.get(),
                 strip=self.var_strip.get(),
-                glossary_path=Path(self.var_glossary.get())
-                if self.var_glossary.get().strip() else None,
+                glossary_path=glossary,
                 on_log=self._log,
             )
-            self._log(self._tr("done", path=out))
+            ok = sum(1 for _, out, err in results if err is None)
+            self._log(self._tr("batch_summary", ok=ok, fail=len(results) - ok))
         except Exception as e:
             self._log(self._tr("failed", err=e))
         finally:

@@ -36,6 +36,24 @@ def test_end_to_end_with_strip_and_glossary(tmp_path):
         assert "周樹人" in html
 
 
+def test_convert_many_one_bad_does_not_stop_others(tmp_path):
+    """批次核心意圖：一本壞檔不能害其他本停下；回傳每本成敗。"""
+    good1 = make_test_epub(tmp_path / "good1.epub")
+    bad = tmp_path / "bad.epub"
+    bad.write_bytes(b"not a zip at all")
+    good2 = make_test_epub(tmp_path / "good2.epub")
+
+    results = pipeline.convert_many([good1, bad, good2], "s2t")
+
+    assert len(results) == 3
+    ok = [r for r in results if r[2] is None]
+    fail = [r for r in results if r[2] is not None]
+    assert len(ok) == 2 and len(fail) == 1        # 壞檔沒拖垮好檔
+    assert (tmp_path / "good1_traditional.epub").exists()
+    assert (tmp_path / "good2_traditional.epub").exists()
+    assert not (tmp_path / "bad_traditional.epub").exists()  # 失敗不留半成品
+
+
 def test_invalid_epub_no_output(tmp_path):
     """失敗時不留半成品輸出檔。"""
     bad = tmp_path / "bad.epub"

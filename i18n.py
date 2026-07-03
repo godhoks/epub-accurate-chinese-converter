@@ -12,7 +12,9 @@ _PREF_FILE = Path.home() / ".accuchineseconv_lang"
 STRINGS = {
     "zh_TW": {
         "title": "EPUB Accurate Chinese Converter",
-        "epub_file": "EPUB 檔：",
+        "epub_file": "EPUB 檔（可多選）：",
+        "n_files": "已選 {n} 個檔案",
+        "batch_summary": "全部完成：{ok} 成功、{fail} 失敗",
         "browse": "選檔…",
         "direction": "方向：",
         "s2t": "簡 → 繁",
@@ -30,7 +32,9 @@ STRINGS = {
     },
     "zh_CN": {
         "title": "EPUB Accurate Chinese Converter",
-        "epub_file": "EPUB 文件：",
+        "epub_file": "EPUB 文件（可多选）：",
+        "n_files": "已选 {n} 个文件",
+        "batch_summary": "全部完成：{ok} 成功、{fail} 失败",
         "browse": "选择…",
         "direction": "方向：",
         "s2t": "简 → 繁",
@@ -48,7 +52,9 @@ STRINGS = {
     },
     "en": {
         "title": "EPUB Accurate Chinese Converter",
-        "epub_file": "EPUB file:",
+        "epub_file": "EPUB files (multi-select):",
+        "n_files": "{n} files selected",
+        "batch_summary": "All done: {ok} succeeded, {fail} failed",
         "browse": "Browse…",
         "direction": "Direction:",
         "s2t": "Simplified → Traditional",

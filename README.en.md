@@ -32,9 +32,11 @@ Then click "**More info**" → "**Run anyway**".
 ## Usage
 
 1. Run `AccuChineseConv.exe`
-2. Pick an EPUB file → choose a direction (Simplified → Traditional / Traditional → Simplified)
+2. Pick EPUB files (hold Ctrl/Shift to select several at once) → choose a direction (Simplified → Traditional / Traditional → Simplified)
 3. Optionally tick "Strip formatting" and pick a glossary
 4. Click "Convert". The output is a new file `name_traditional.epub` / `name_simplified.epub`; your original is left untouched.
+
+**Batch conversion**: select multiple EPUBs at once — the same direction / strip / glossary settings apply to the whole batch. The log shows per-book progress and a final summary ("X succeeded, Y failed"). A single bad file is skipped without stopping the rest. The book title (EPUB metadata) is converted too.
 
 ## Options
 
