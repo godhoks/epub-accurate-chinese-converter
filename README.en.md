@@ -1,4 +1,4 @@
-[![繁體中文](https://img.shields.io/badge/繁體中文-9E9E9E?style=for-the-badge)](README.md) [![English](https://img.shields.io/badge/English-2C6E6B?style=for-the-badge)](README.en.md)
+[![繁體中文](https://img.shields.io/badge/繁體中文-9E9E9E?style=for-the-badge)](README.md) [![English](https://img.shields.io/badge/English-2C6E6B?style=for-the-badge)](README.en.md) [![License: MIT](https://img.shields.io/badge/License-MIT-4C9A2A?style=for-the-badge)](LICENSE)
 
 # EPUB Accurate Chinese Converter
 
@@ -65,3 +65,7 @@ pip install -r requirements.txt
 python -m pytest
 python main.py
 ```
+
+## License
+
+Released under the [MIT License](LICENSE) — free to use, modify and distribute.
