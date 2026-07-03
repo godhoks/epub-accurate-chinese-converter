@@ -13,7 +13,7 @@ Or see all versions on the [Releases page](https://github.com/godhoks/epub-accur
 ## Why this tool
 
 - **Accurate**: character-level conversion, so proper nouns (like personal names) are never mistranslated; a custom glossary guarantees one consistent rendering of each term across the whole book.
-- **Reliable**: never overwrites your original — always writes a new file; no half-finished output on failure; 25 automated tests and verified on real books.
+- **Reliable**: never overwrites your original — always writes a new file; no half-finished output on failure; verified with automated tests and on real books.
 - **Simple**: pick a file, pick a direction, click convert. No install, no setup. UI available in Traditional Chinese / Simplified Chinese / English.
 - **Clean**: optionally strip the publisher's messy CSS, embedded fonts and inline styles in one click, keeping chapters, table of contents, bold/italic and images for a tidy reading experience.
 
