@@ -19,7 +19,7 @@ jobs:
           python-version: "3.13"
       - run: pip install -r requirements.txt pyinstaller
       - run: python -m pytest
-      - run: pyinstaller --onefile --windowed --name AccuChineseConv --icon assets/icon.ico --add-data "assets/icon.ico;assets" main.py
+      - run: pyinstaller --onefile --windowed --name "AccuChineseConv-${{ github.ref_name }}" --icon assets/icon.ico --add-data "assets/icon.ico;assets" main.py
       - uses: softprops/action-gh-release@v2
         with:
-          files: dist/AccuChineseConv.exe
+          files: dist/AccuChineseConv-${{ github.ref_name }}.exe

@@ -6,9 +6,9 @@
 
 ## 下载
 
-**[⬇ 下载 AccuChineseConv.exe（最新版）](https://github.com/godhoks/epub-accurate-chinese-converter/releases/latest/download/AccuChineseConv.exe)**
+**[⬇ 前往下载最新版](https://github.com/godhoks/epub-accurate-chinese-converter/releases/latest)**
 
-或到 [Releases 页面](https://github.com/godhoks/epub-accurate-chinese-converter/releases/latest) 查看所有版本。免安装，下载即用。
+在 Releases 页面点 `AccuChineseConv-vX.X.X.exe`（文件名含版号，方便辨识版本）即可。免安装，下载即用。
 
 ## 为什么选它
 

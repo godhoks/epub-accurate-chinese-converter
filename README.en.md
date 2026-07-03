@@ -6,9 +6,9 @@
 
 ## Download
 
-**[⬇ Download AccuChineseConv.exe (latest)](https://github.com/godhoks/epub-accurate-chinese-converter/releases/latest/download/AccuChineseConv.exe)**
+**[⬇ Go to the latest release](https://github.com/godhoks/epub-accurate-chinese-converter/releases/latest)**
 
-Or see all versions on the [Releases page](https://github.com/godhoks/epub-accurate-chinese-converter/releases/latest). No installation — just download and run.
+On the Releases page, click `AccuChineseConv-vX.X.X.exe` (the filename includes the version). No installation — just download and run.
 
 ## Why this tool
 
