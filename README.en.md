@@ -18,11 +18,15 @@ Or see all versions on the [Releases page](https://github.com/godhoks/epub-accur
 
 ## First run (Windows SmartScreen)
 
-The first time you run it, Windows may show a blue "Windows protected your PC" dialog. This happens because independent open-source tools are not code-signed — it is **normal, not a virus**.
+The first time you run it, Windows may show a blue "Windows protected your PC" dialog. This is because the tool is an independent open-source project without an expensive code-signing certificate — Windows shows this for **any** unsigned program, regardless of whether it is actually safe.
 
-**What to do**: click "**More info**" → "**Run anyway**".
+**How you can verify it is safe:**
+- **Fully open source**: every line of code in this repo is visible to you — nothing hidden
+- **Built by GitHub, not hand-uploaded**: the exe is compiled by GitHub Actions directly from the public source above (verifiable in the Actions log), so it matches the source
+- **Offline and non-destructive**: it runs locally, makes no network connections, uploads nothing, and never modifies your original EPUB
+- Still unsure? Scan the exe yourself with your antivirus or [VirusTotal](https://www.virustotal.com/)
 
-The tool runs entirely on your machine — no network access, no uploads — and never overwrites your original EPUB.
+Then click "**More info**" → "**Run anyway**".
 
 ## Usage
 
