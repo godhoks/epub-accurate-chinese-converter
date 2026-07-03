@@ -36,6 +36,20 @@ def test_end_to_end_with_strip_and_glossary(tmp_path):
         assert "周樹人" in html
 
 
+def test_language_code_set_to_neutral_script(tmp_path):
+    """metadata 語言碼改成中性字形碼（zh-Hant/zh-Hans），不綁地區、與內文一致。"""
+    epub = make_test_epub(tmp_path / "book.epub")
+    out_t = pipeline.convert_epub(epub, "s2t")   # 簡→繁
+    with zipfile.ZipFile(out_t) as zf:
+        opf = zf.read("OEBPS/content.opf").decode("utf-8")
+        assert "zh-Hant" in opf and "zh-CN" not in opf
+
+    out_s = pipeline.convert_epub(epub, "t2s")   # 繁→簡
+    with zipfile.ZipFile(out_s) as zf:
+        opf = zf.read("OEBPS/content.opf").decode("utf-8")
+        assert "zh-Hans" in opf
+
+
 def test_convert_many_one_bad_does_not_stop_others(tmp_path):
     """批次核心意圖：一本壞檔不能害其他本停下；回傳每本成敗。"""
     good1 = make_test_epub(tmp_path / "good1.epub")

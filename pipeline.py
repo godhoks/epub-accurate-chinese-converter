@@ -8,7 +8,7 @@ from pathlib import Path
 
 import epub_io
 import strip_format as strip_mod
-from convert_text import OpenCCTranslator, convert_tree
+from convert_text import OpenCCTranslator, convert_tree, set_opf_language
 from glossary import load_glossary
 
 
@@ -34,6 +34,7 @@ def convert_epub(input_path: Path, direction: str, strip: bool = False,
             strip_mod.strip_format(tmp, on_log)
         on_log("簡繁轉換…")
         convert_tree(tmp, OpenCCTranslator(direction), pairs, on_log)
+        set_opf_language(tmp, direction, on_log)
         on_log("重打包…")
         epub_io.repack(tmp, output_path)
         on_log(f"完成：{output_path}")

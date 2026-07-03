@@ -62,6 +62,40 @@ def _convert_xml_file(path: Path, translate, only_under_tag: str | None = None):
     tree.write(str(path), xml_declaration=True, encoding="utf-8")
 
 
+# 轉換方向 → 中性字形語言碼（不綁地區，符合「只轉字形」原則）
+LANG_CODE = {"s2t": "zh-Hant", "t2s": "zh-Hans"}
+
+
+def set_opf_language(root_dir: Path, direction: str,
+                     on_log=lambda msg: None) -> None:
+    """把 OPF <metadata> 內的 dc:language 設成中性字形碼（zh-Hant/zh-Hans）。
+
+    只改既有的 language 元素、不無中生有；限定在 metadata 底下，不動屬性。
+    """
+    code = LANG_CODE.get(direction)
+    if code is None:
+        return
+    root_dir = Path(root_dir)
+    for opf in sorted(root_dir.rglob("*.opf")):
+        tree = etree.parse(str(opf), _PARSER)
+        root = tree.getroot()
+        if root is None:
+            continue
+        changed = False
+        for meta in root.iter():
+            if not (isinstance(meta.tag, str)
+                    and etree.QName(meta).localname == "metadata"):
+                continue
+            for elem in meta.iter():
+                if (isinstance(elem.tag, str)
+                        and etree.QName(elem).localname == "language"):
+                    elem.text = code
+                    changed = True
+        if changed:
+            tree.write(str(opf), xml_declaration=True, encoding="utf-8")
+            on_log(f"語言碼 → {code}：{opf.relative_to(root_dir).as_posix()}")
+
+
 def convert_tree(root_dir: Path, translator: Translator,
                  glossary_pairs: list[tuple[str, str]],
                  on_log=lambda msg: None) -> None:
